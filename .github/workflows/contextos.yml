@@ -1,0 +1,29 @@
+name: 'Contexts practice'
+run-name: 'Using contexts in GitHub Actions'
+
+on:
+  pull_request:
+
+jobs:
+  contextos:
+    name: Contextos en GitHub Actions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mostrar contexto del evento
+        run: |
+          echo "Contexto del evento:"
+          echo "${{ toJson(github.event) }}"
+
+      - name: Mostrar contexto del repositorio
+        run: |
+          echo "Contexto del repositorio:"
+          echo "${{ toJson(github.repository) }}"
+
+      - name: Mostrar contexto del actor
+        run: |
+          echo "Contexto del actor:"
+          echo "${{ toJson(github.actor) }}"
+
+      - name: deployment context
+        run: | 
+          echo "Versión: ${{ needs.build.outputs.version }}"
