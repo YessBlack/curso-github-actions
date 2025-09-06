@@ -1,0 +1,26 @@
+name: Ejemplo Funciones y Expresiones
+run-name: Expresiones y funciones en GitHub Actions
+on:
+  pull_request:
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mostrar Labels
+        run: |
+          echo "Labels: ${{ toJson(github.event.pull_request.labels.*.name) }}"
+
+      - name: Mostrar Autor
+        run: |
+          echo "Autor del PR: ${{ github.event.pull_request.user.login }}"
+
+      - name: Contains y ternario
+        run: |
+          if ${{ contains(github.event.pull_request.labels.*.name, 'bug') }}; then
+            echo "El PR tiene la etiqueta 'bug'";
+          else
+            echo "El PR no tiene la etiqueta 'bug'";
+          fi
+          echo "Mensaje: ${{ contains(github.event.pull_request.labels.*.name, 'bug') && 'Este PR es un bug' || 'Este PR no es un bug' }}"
+        
